@@ -5,6 +5,7 @@ let projects = [
     id: 1,
     name: 'Anime Recommendation App',
     description: 'Build a web app that suggests anime based on user preferences.',
+    status: 'todo',
     created_at: seededAt,
     updated_at: seededAt,
   },
@@ -12,9 +13,17 @@ let projects = [
     id: 2,
     name: 'Cybersecurity Awareness Campaign',
     description: 'Create a campaign to educate users about online security best practices.',
+    status: 'todo',
     created_at: seededAt,
     updated_at: seededAt,
   },
+  {
+    id: 3,
+    name: 'Top Games of 2025',
+    description: 'Compile a list of the best video games released in 2025.',
+    created_at: seededAt,
+    updated_at: seededAt,
+  }
 ]
 
 let nextProjectId = 3
