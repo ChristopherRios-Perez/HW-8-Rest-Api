@@ -30,6 +30,7 @@ let projects = [
 ]
 
 let nextProjectId = 3
+let nextTaskID = 4
 
 function clone(item) {
   return { ...item }
@@ -94,4 +95,8 @@ export function deleteProject(id) {
   }
 
   return true
+}
+
+export function listTasks(projectId) {
+  return TaskSignal.filter((task) => task.project_id === projectId).map(clone)
 }
