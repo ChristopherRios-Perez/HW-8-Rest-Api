@@ -3,34 +3,52 @@ const seededAt = new Date().toISOString()
 let projects = [
   {
     id: 1,
-    project_id: 1,
-    name: 'Anime Recommendation App',
-    description: 'Build a web app that suggests anime based on user preferences.',
-    status: 'todo',
+    name: 'Berserk Web Project',
+    description: 'Redesign and rebuild the portfolio website for the Berserk design system.',
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 2,
-    project_id: 2,
-    name: 'Cybersecurity Awareness Campaign',
-    description: 'Create a campaign to educate users about online security best practices.',
+    name: 'Cybersecurity Workshop',
+    description: 'Prepare teaching material for the class workshop.',
+    created_at: seededAt,
+    updated_at: seededAt,
+  },
+]
+
+let tasks = [
+  {
+    id: 1,
+    project_id: 1,
+    title: 'Draft homepage wireframes',
+    description: 'Create desktop and mobile layout drafts.',
+    status: 'in_progress',
+    created_at: seededAt,
+    updated_at: seededAt,
+  },
+  {
+    id: 2,
+    project_id: 1,
+    title: 'Update portfolio images',
+    description: 'Replace old screenshots with new ones from the latest release.',
     status: 'todo',
     created_at: seededAt,
     updated_at: seededAt,
   },
   {
     id: 3,
-    project_id: 3,
-    name: 'Top Games of 2025',
-    description: 'Compile a list of the best video games released in 2025.',
+    project_id: 2,
+    title: 'update slides with better examples',
+    description: 'Replace outdated examples with recent examples',
+    status: 'todo',
     created_at: seededAt,
     updated_at: seededAt,
-  }
+  },
 ]
 
 let nextProjectId = 3
-let nextTaskID = 4
+let nextTaskId = 4
 
 function clone(item) {
   return { ...item }
@@ -94,9 +112,62 @@ export function deleteProject(id) {
     return false
   }
 
+  tasks = tasks.filter((task) => task.project_id !== id)
+
   return true
 }
 
-export function listTasks(projectId) {
-  return TaskSignal.filter((task) => task.project_id === projectId).map(clone)
+export function listTasksByProject(projectId) {
+  return tasks.filter((task) => task.project_id === projectId).map(clone)
+}
+
+export function createTask(projectId, input) {
+  const timestamp = nowIso()
+  const task = {
+    id: nextTaskId,
+    project_id: projectId,
+    title: input.title.trim(),
+    description: input.description?.trim() || '',
+    status: input.status || 'todo',
+    created_at: timestamp,
+    updated_at: timestamp,
+  }
+
+  nextTaskId += 1
+  tasks.push(task)
+
+  return clone(task)
+}
+
+export function getTaskById(id) {
+  const task = tasks.find((item) => item.id === id)
+  return task ? clone(task) : null
+}
+
+export function updateTask(id, input) {
+  const index = tasks.findIndex((item) => item.id === id)
+
+  if (index === -1) {
+    return null
+  }
+
+  const current = tasks[index]
+  const updated = {
+    ...current,
+    ...('title' in input ? { title: input.title.trim() } : {}),
+    ...('description' in input
+      ? { description: input.description.trim() }
+      : {}),
+    ...('status' in input ? { status: input.status } : {}),
+    updated_at: nowIso(),
+  }
+
+  tasks[index] = updated
+  return clone(updated)
+}
+
+export function deleteTask(id) {
+  const startSize = tasks.length
+  tasks = tasks.filter((item) => item.id !== id)
+  return tasks.length !== startSize
 }
