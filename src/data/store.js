@@ -3,6 +3,7 @@ const seededAt = new Date().toISOString()
 let projects = [
   {
     id: 1,
+    project_id: 1,
     name: 'Anime Recommendation App',
     description: 'Build a web app that suggests anime based on user preferences.',
     status: 'todo',
@@ -11,6 +12,7 @@ let projects = [
   },
   {
     id: 2,
+    project_id: 2,
     name: 'Cybersecurity Awareness Campaign',
     description: 'Create a campaign to educate users about online security best practices.',
     status: 'todo',
@@ -19,6 +21,7 @@ let projects = [
   },
   {
     id: 3,
+    project_id: 3,
     name: 'Top Games of 2025',
     description: 'Compile a list of the best video games released in 2025.',
     created_at: seededAt,
