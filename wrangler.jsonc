@@ -2,14 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hw-8-rest-api",
   "main": "src/index.js",
-  "compatibility_date": "2026-03-17"
+  "compatibility_date": "2026-03-17",
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "projects_db",
-      "database_id": "d1c9b2e5-9f0c-4a3b-8e7a-1a2b3c4d5e6f"
-    }
-  ]
+      "database_id": "d1c9b2e5-9f0c-4a3b-8e7a-1a2b3c4d5e6f",
+      "migrations_dir": "./src/data/migrations",
+    },
+  ],
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
