@@ -2,21 +2,18 @@
   "name": "HW-8-Rest-Api",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "db:generate": "prisma generate",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.8",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "drizzle-kit": "^0.31.10",
-    "prisma": "^7.6.0",
     "wrangler": "^4.35.0"
   }
 }
