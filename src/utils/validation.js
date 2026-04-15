@@ -147,3 +147,49 @@ export function validateTaskCreate(payload) {
 export function validateTaskPatch(payload) {
   return validateWithSchema(payload, taskPatchSchema)
 }
+
+const registerSchema = z.strictObject({
+  email: z
+    .string({ error: 'Email is required.' })
+    .email({ error: 'Email must be a valid email address.' }),
+  password: z
+    .string({ error: 'Password is required.' })
+    .min(8, { error: 'Password must be at least 8 characters.' }),
+})
+
+const loginSchema = z.strictObject({
+  email: z
+    .string({ error: 'Email is required.' })
+    .email({ error: 'Email must be a valid email address.' }),
+  password: z
+    .string({ error: 'Password is required.' })
+    .min(1, { error: 'Password is required.' }),
+})
+
+const refreshSchema = z.strictObject({
+  refresh_token: z
+    .string({ error: 'refresh_token is required.' })
+    .min(1, { error: 'refresh_token is required.' }),
+})
+
+const logoutSchema = z.strictObject({
+  refresh_token: z
+    .string({ error: 'refresh_token is required.' })
+    .min(1, { error: 'refresh_token is required.' }),
+})
+
+export function validateRegister(payload) {
+  return validateWithSchema(payload, registerSchema)
+}
+
+export function validateLogin(payload) {
+  return validateWithSchema(payload, loginSchema)
+}
+
+export function validateRefresh(payload) {
+  return validateWithSchema(payload, refreshSchema)
+}
+
+export function validateLogout(payload) {
+  return validateWithSchema(payload, logoutSchema)
+}
