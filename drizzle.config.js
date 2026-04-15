@@ -1,4 +1,4 @@
-import {defineConfig} from 'dirzzle-kit'
+import {defineConfig} from 'drizzle-kit'
 
 export default defineConfig({
     schema: './src/data/schema.js',

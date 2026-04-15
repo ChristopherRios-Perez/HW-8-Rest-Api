@@ -10,12 +10,6 @@
 			"database_id": "8494d09b-e63c-4c57-82d3-ce392a7c6f28",
 			"migrations_dir": "./src/data/migrations",
 		},
-		{
-			"binding": "projects_db",
-			"database_name": "projects_db",
-			"database_id": "8494d09b-e63c-4c57-82d3-ce392a7c6f28",
-			"remote": true
-		},
 	],
 	// "compatibility_flags": [
 	//   "nodejs_compat"
