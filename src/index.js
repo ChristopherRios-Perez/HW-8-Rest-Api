@@ -1,4 +1,6 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import { rateLimiter } from 'hono-rate-limiter'
 
 import auth from './routes/auth.js'
 import projects from './routes/projects.js'
@@ -15,9 +17,40 @@ app.use('*', async (c, next) => {
   await next()
 })
 
+app.use(
+  rateLimiter({
+    binding: (c) => c.env.AUTH_LIMITER,
+    keyGenerator: (c) => c.req.header('cf-connecting-ip') ?? '',
+    message: (c) => {
+      return {
+        error: {
+          code: 'TOO_MANY_REQUESTS',
+          message: 'Too many requests, please try again later.',
+          details: [],
+          trace_id: c.get('traceId'),
+        },
+      }
+    },
+  }),
+)
+
+app.use(
+  '/api/*',
+  cors({
+    origin: (origin, c) => {
+      const allowed =
+        c.env.ALLOWED_ORIGINS?.split(',').map((o) => o.trim()) ?? []
+      return allowed.includes(origin) ? origin : null
+    },
+    allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+)
+
 api.route('/auth', auth)
-api.use('/projects/*', authenticate)
-api.use('/tasks/*', authenticate)
+
+api.use('*', authenticate)
 api.route('/projects', projects)
 api.route('/tasks', tasks)
 
